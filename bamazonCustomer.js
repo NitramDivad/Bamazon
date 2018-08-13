@@ -21,10 +21,10 @@ connection.connect(function(err) {
 
 
 function displayProducts() {
-    var sql = "SELECT item_id AS 'Product Item', product_name AS 'Product Name', LPAD(CONCAT('$',price), 13, ' ') AS 'Product Price' FROM products"
+    var sql = "SELECT item_id AS 'Product Item', product_name AS 'Product Name', LPAD(CONCAT('$',price), 13, ' ') AS 'Product Price' FROM products";
 	connection.query(sql, function(err, results) {
         if (err)
-          throw err;
+            throw err;
 		else {
 			console.table(results);
 			startSale();
