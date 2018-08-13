@@ -12,17 +12,18 @@ var connection = mysql.createConnection({
 
 
 connection.connect(function(err) {
+
     if (err)
         throw err;
-    else {
+    else
         displayProducts();
-    }
 });
 
 
 function displayProducts() {
-    var sql = "SELECT item_id AS 'Product Item', product_name AS 'Product Name', LPAD(CONCAT('$',price), 13, ' ') AS 'Product Price' FROM products";
+    var sql = "SELECT item_id AS 'Product Item', product_name AS 'Product Name', LPAD(CONCAT('$',price), 13, ' ') AS 'Product Price' FROM products WHERE stock_quantity > 0";
 	connection.query(sql, function(err, results) {
+
         if (err)
             throw err;
 		else {
@@ -51,17 +52,18 @@ function startSale() {
         .then(function(responses) {
             fulfillOrder(responses);
         });
-}
+};
 
 
 function fulfillOrder(item) {
     var id = parseInt(item.itemID),
         itemQuantity = parseInt(item.quantity),
         dbQuantity = 0,
-        price = 0,
-        product = '';
+        price = 0.00,
+        product = "",
+        productSales = 0.00;
         
-    connection.query("SELECT product_name, stock_quantity, price FROM products WHERE ?",
+    connection.query("SELECT product_name, stock_quantity, price, product_sales FROM products WHERE ?",
         [{ item_id: id }], function(err, result) {
 
             if (err)
@@ -71,22 +73,47 @@ function fulfillOrder(item) {
                 dbQuantity = parseInt(result[0].stock_quantity);
                 if (itemQuantity <= dbQuantity) {
                     price = parseFloat(result[0].price);
-                    dbQuantity -= itemQuantity
+                    productSales = (parseFloat(result[0].product_sales) + (itemQuantity * price)).toFixed(2);
+                    dbQuantity -= itemQuantity;
                     connection.query("UPDATE products SET ? WHERE ?",
-                        [{ stock_quantity: dbQuantity},
+                        [{ stock_quantity: dbQuantity,
+                           product_sales: productSales
+                         },
                          { item_id: id }
                         ], function(err, results) {
 
                             if (err)
                                 throw err;
-                            else
-                                console.log("\nPurchase Complete.  Your total is: $" + (itemQuantity * price).toString() + "\n")
+                            else {
+                                console.log("\nPurchase Complete.  Your total is: $" + ((itemQuantity * price).toFixed(2)).toString() + "\n");
+                                continueToShop();
+                            }
                     });
                 }
-                else
-                    console.log("\nThere is not enough stock to fulfill your order for " + product + "\n")
-            }
-
-            displayProducts();
+                else {
+                    console.log("\nThere is not enough stock to fulfill your order for " + product + "\n");
+                    continueToShop();
+                };
+            };
     });
-}
+};
+
+
+function continueToShop() {
+	inquirer
+		.prompt([
+		{
+			name: "continue",
+			type: "confirm",
+			message: "Continue shopping for more items?\n"
+		}
+	])
+	.then(function(answer) {
+		if (answer.continue)
+			displayProducts();
+		else {
+			console.log("Thanks for Shopping with Bamazon!\n");
+			connection.end();
+		}
+	});	
+};

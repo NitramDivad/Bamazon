@@ -29,6 +29,7 @@ function displayProducts(whichGroup) {
         var sql = "SELECT item_id AS 'Product Item', product_name AS 'Product Name', LPAD(CONCAT('$',price), 13, ' ') AS 'Product Price', stock_quantity as 'Quantity' FROM products WHERE stock_quantity < 5";
 
 	connection.query(sql, function(err, results) {
+
         if (err)
             throw err;
 		else {
@@ -50,24 +51,24 @@ function menuOptions() {
                       "View Low Inventory",
                       "Add to Inventory",
                       "Add New Product",
-                      "Quit"],
+                      "Quit Program"],
 			message: "What would you like to do?"
 		}
 	])
 	.then(function(answer) {
-        if (answer.choice === 'View Products for Sale')
+        if (answer.choice === "View Products for Sale")
             displayProducts('all');
 
-        if (answer.choice === 'View Low Inventory')
+        if (answer.choice === "View Low Inventory")
             displayProducts('low');
 
-        if (answer.choice === 'Add to Inventory')
+        if (answer.choice === "Add to Inventory")
             addToInventory();
 
-        if (answer.choice === 'Add New Product')
+        if (answer.choice === "Add New Product")
             addNewProduct();
 
-        if (answer.choice === 'Quit')
+        if (answer.choice === "Quit Program")
             quitProgram();
 	});
 };
@@ -75,7 +76,7 @@ function menuOptions() {
 
 function quitProgram() {
 
-    console.log("\n\nExiting Program");
+    console.log("\n\nExiting Program...");
     connection.end();
 };
 
