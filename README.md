@@ -5,7 +5,7 @@ Bamazon App
 
 Bamazon is an "Amazon.com" like storefront which utilizes both Node.JS and MySQL.
 
-Bamazon has three (3) essential functional areas as follows:
+Bamazon contains three (3) essential functional areas as follows:
 
     * 'Customer'
         * The Customer is presented with a list of available items to purchase
@@ -15,11 +15,12 @@ Bamazon has three (3) essential functional areas as follows:
         * The Customer is given the opportunity to continue shopping or to Quit
 
     * 'Manager'
-        * The Manager will have the following four options:
+        * The Manager will have the following five options:
             - View Products for Sale
             - View Low Inventory
             - Add to Inventory
             - Add New Product
+            - Quit Program
         * View Products for Sale will list every available item by ID, name, price and quantity
         * View Low Inventory lists all items with an inventory count lower than five
         * Add to Inventory allows the Manager to add items to the existing inventory count for an item
@@ -27,15 +28,16 @@ Bamazon has three (3) essential functional areas as follows:
         * The products table will be appropriately updated with each of the above functions
 
     * 'Supervisor'
-        * The Supervisor will have the the following two options:
+        * The Supervisor will have the the following three options:
             - View Product Sales by Department
             - Create New Department
-        * View Product Sales will display a sumarized table which will include the Department ID, Name,
+            - Quit Program
+        * View Product Sales will display a summarized table which will include the Department ID, Name,
           Overhead Costs, Total Sales, and Profit
         * Total Sales and Profit are calculated for display purposes and are not stored on the database
 
     * The table structure for both the products and the departments table can be found in their 
-      respective SQL files.  Each does contain initilization data.
+      respective SQL files.  Each does contain initialization data.
 
     * A Guide for use is also included.  It can be found at the following link:  (to be provided)
 
