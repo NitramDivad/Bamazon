@@ -33,3 +33,6 @@ VALUES ("Home & Kitchen", 551.10);
 
 INSERT INTO departments (department_name, over_head_costs)
 VALUES ("Office Supplies", 933.66);
+
+INSERT INTO departments (department_name, over_head_costs)
+VALUES ("Outdoor & Patio", 804.82);
