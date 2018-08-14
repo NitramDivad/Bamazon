@@ -38,8 +38,10 @@ Bamazon contains three (3) essential functional areas as follows:
     * The table structure for both the products and the departments table can be found in their 
       respective SQL files.  Each does contain initialization data.
 
-    * A Guide for use is also included.  It can be found at the following link: 
+    * A Guide for use is also included.  It can be found at the link below. 
+
 [Bamazon Documentation](https://drive.google.com/file/d/1bIMmkCHN4vYmaul__pk39tgxLztfMWu-/view?usp=sharing)
+
 
 ## **Created by:** #
 
